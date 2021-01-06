@@ -19,8 +19,7 @@ Route::group([
         # Update permission
         Route::group([
             'middleware' => [
-                'permission:edit invoice',
-                'web'
+                'permission:edit invoice'
             ]
         ], function () {
             Route::get('/update/{id}', [CallbackController::class, 'update'])->name('update');
