@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CallbackRequest;
-use App\Models\Callback;
+use App\Http\Requests\ApplicationRequest;
+use App\Models\Application;
 
 class HomeController extends Controller
 {
@@ -22,13 +22,13 @@ class HomeController extends Controller
     /**
      * Create invoice
      *
-     * @param CallbackRequest $request
+     * @param ApplicationRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function create(CallbackRequest $request)
+    public function create(ApplicationRequest $request)
     {
-        Callback::query()->create($request->all());
+        Application::query()->create($request->all());
 
         return redirect()->back()->with('success', 'Заявка успешно добавлена!');
     }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\CallbackController;
+use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -8,27 +8,26 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::group([
-    'prefix' => 'admin'
+    'prefix' => 'admin',
+    'middleware' => 'web'
 ], function () {
     # Index page
-    Route::get('/', [CallbackController::class, 'index'])->name('index');
+    Route::get('/', [ApplicationController::class, 'index'])->name('index');
     # Callback
     Route::group([
-        'prefix' => 'callback'
+        'prefix' => 'application'
     ], function () {
         # Update permission
         Route::group([
-            'middleware' => [
-                'permission:edit invoice'
-            ]
+            'middleware' => 'permission:edit invoice'
         ], function () {
-            Route::get('/update/{id}', [CallbackController::class, 'update'])->name('update');
+            Route::get('/update/{application}', [ApplicationController::class, 'update'])->name('update');
         });
         # Delete permission
         Route::group([
             'middleware' => 'permission:delete invoice'
         ], function () {
-            Route::get('/delete/{id}', [CallbackController::class, 'delete'])->name('delete');
+            Route::get('/delete/{application}', [ApplicationController::class, 'delete'])->name('delete');
         });
     });
 });

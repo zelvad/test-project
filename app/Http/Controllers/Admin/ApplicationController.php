@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Callback;
+use App\Models\Application;
 
-class CallbackController extends Controller
+class ApplicationController extends Controller
 {
 
     /**
-     * CallbackController constructor.
+     * ApplicationController constructor.
      */
 
     public function __construct()
@@ -25,25 +25,25 @@ class CallbackController extends Controller
 
     public function index()
     {
-        $callbacks = Callback::query()
+        $applications = Application::query()
             ->with('user')
             ->paginate(10);
 
         return view('admin.home', [
-            'callbacks' => $callbacks
+            'applications' => $applications
         ]);
     }
 
     /**
      * Edit invoice
      *
-     * @param Callback $invoice
+     * @param Application $application
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function update(Callback $invoice)
+    public function update(Application $application)
     {
-        $invoice->first()->update([
+        $application->update([
             'status' => 1,
             'user_id' => auth()->id()
         ]);
@@ -54,14 +54,14 @@ class CallbackController extends Controller
     /**
      * Delete invoice
      *
-     * @param Callback $invoice
+     * @param Application $application
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
 
-    public function delete(Callback $invoice)
+    public function delete(Application $application)
     {
-        $invoice->first()->delete();
+        $application->delete();
 
         return redirect()->back();
     }
