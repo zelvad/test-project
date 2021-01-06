@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\API\CallbackRequest;
+use App\Http\Requests\CallbackRequest;
 use App\Models\Callback;
 
 class HomeController extends Controller
